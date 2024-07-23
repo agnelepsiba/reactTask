@@ -13,11 +13,20 @@ function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+ 
+  const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
   const validateForm = () => {
     if (username.trim() === '' || password.trim() === '') {
       setValidationMessage('Username and Password are required.');
       return false;
     }
+
+    if (!gmailRegex.test(username.trim())) {
+      setValidationMessage('Please enter a valid Gmail address.');
+      return false;
+    }
+
     setValidationMessage('');
     return true;
   };
@@ -53,7 +62,7 @@ function Register() {
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Username:</label>
+          <label>Username (Gmail):</label>
           <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
         </div>
         <div>
